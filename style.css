@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather&family=Nunito+Sans:opsz@6..12&family=Roboto&display=swap');
+
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: "Lora", serif;
+}
+
+body {
+    background-color: peru;
+}
+
+.singlemeal {
+    width: 250px;
+}
+
+#display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 30px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.meal-name {
+    text-align: center;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.image-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#btn {
+    margin-left: 5px;
+}
+
+.add-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-recipe {
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background-color: rgb(233, 191, 221);
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pop-up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+form {
+    width: 500px;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: peru;
+    border-radius: 10px;
+    height: 300px;
+    z-index: 2;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+}
+
+form label {
+    margin: 15px;
+}
+
+form input[type="text"] {
+    padding: 10px;
+    width: 250px;
+    border-radius: 10px;
+    margin: 10px;
+}
