@@ -23,13 +23,38 @@ body {
     flex-direction: row;
     gap: 30px;
     flex-wrap: wrap;
-    position: relative;
     z-index: 1;
+    /* position:relative; */
 }
-
+.cross-icon{
+    cursor:pointer;
+    display:flex;
+    justify-content: flex-end;
+    margin:8px;
+}
 .meal-name {
     text-align: center;
 }
+.recipe{
+    border:1px solid white;
+    border-radius:8px;
+    padding-bottom:5px;
+    height:400px;
+}
+.hide{
+    display:none;
+}
+.recipe-detail{
+    border:1px solid white;
+    border-radius:8px;
+    padding-bottom:5px;
+    width:90%;
+    background-color: rgb(233, 106, 83);
+  position: absolute;
+  top:15%;
+    z-index:2; 
+}
+
 
 .buttons-container {
     display: flex;
@@ -37,11 +62,12 @@ body {
     align-items: center;
     gap: 10px;
 }
-
+.meal-name1{
+    text-align:left;
+}
 .image-div {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
     flex-direction: column;
 }
 
@@ -83,18 +109,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: row
 }
 
 form {
     width: 500px;
     font-weight: bold;
+    position:sticky;
     font-size: 15px;
-    background-color: peru;
+    background-color: rgb(233, 106, 83);
     border-radius: 10px;
+    border:1px solid white;
     height: 300px;
     z-index: 2;
-    position: absolute;
+    position:fixed;
     top: 20%;
     left: 30%;
 }
@@ -104,8 +132,42 @@ form label {
 }
 
 form input[type="text"] {
-    padding: 10px;
+    padding: 7px;
     width: 250px;
     border-radius: 10px;
     margin: 10px;
+}
+form input[type="url"] {
+    padding: 7px;
+    width: 250px;
+    border-radius: 10px;
+    margin: 10px;
+}
+.recipe-form{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height:560px;
+    width: 80%;
+    /* font-weight: bold; */
+    /* position:sticky; */
+    font-size: 15px;
+    background-color: rgb(233, 106, 83);
+    border-radius: 10px;
+    border:1px solid white;
+    z-index: 2;
+    /* position:fixed; */
+    top: 5%;
+    left: 10%;
+}
+#addIngredient{
+    width:30px;
+}
+#addMeasurement{
+    width:30px;
+}
+.addcross-icon{
+    cursor:pointer;
+    margin-right: 2px;
 }
