@@ -57,6 +57,7 @@ function renderCards(meals) {
     }
   });
 }
+//Search Meal
 document.getElementById("btn").addEventListener("click", () => {
   let user = document.getElementById("userInput").value;
   //recipeContainer.innerHTML = "";
@@ -71,101 +72,106 @@ document.getElementById("btn").addEventListener("click", () => {
     })
     .then((sendData) => {
       console.log(sendData);
+      localStorage.setItem("recipes", JSON.stringify(sendData.meals));
+
       renderCards(sendData.meals);
     });
 });
 
 function Delete(idMeal) {
-  let items = JSON.parse(localStorage.getItem("recipes"));
-  console.log("hello check this array", items);
-  let index = items.findIndex((d) => d.idMeal === idMeal);
-  console.log("hello check index", index);
-  if (index !== -1) {
+  let recipes = JSON.parse(localStorage.getItem("recipes"))  || [];
+  console.log("hello check this array", recipes);
+  let singleData = recipes.findIndex((d) => d.idMeal === idMeal);
+  console.log("hello check index", singleData);
+  if (singleData !== -1) {
     //items.splice(index,1);
     alert("Are you Sure you want to delete?");
-    delete items[index];
-    localStorage.setItem("recipes", JSON.stringify(items));
-    renderCards(items);
+    //delete recipes[singleData];
+    recipes.splice(singleData,1);
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+    renderCards(recipes);
   }
 }
 function recipeDetail(idMeal) {
-  // let recipeDetails = JSON.parse(localStorage.getItem("recipes"));
-  // console.log("hello check this array", recipeDetails);
-  // let index = recipeDetails.find((d) => d.idMeal === idMeal);
-  // console.log("kkkkkk",index);
-  if (idMeal) {
-    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((singleData) => {
-        if (singleData.meals) {
-          console.log(singleData);
-          var mealDetail = document.createElement("div");
-          mealDetail.classList.add("recipe-detail");
-          mealDetail.innerHTML = `
+  let recipes = JSON.parse(localStorage.getItem("recipes"));
+  console.log("hello check this array", recipes);
+  let singleData = recipes.find((d) => d.idMeal === idMeal);
+  console.log("kkkkkk", singleData);
+  // if (idMeal) {
+  //   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((singleData) => {
+  //       if (singleData.meals) {
+  //         console.log(singleData);
+  var mealDetail = document.createElement("div");
+  mealDetail.classList.add("recipe-detail");
+  mealDetail.innerHTML = `
           <div class="cross-icon">
           <button type="button" class="btn-close" aria-label="Close" onclick="closePopup();"></button>
       </div>
       <div class="image-div">
-      <img class="singlemeal" src="${singleData.meals[0].strMealThumb}">
-      <h1 class="meal-name">${singleData.meals[0].strMeal}</h1>
-      <h2 class='text-center text-secondary'>Food Area: ${singleData.meals[0].strArea}</h2>
- <h2 class='text-center text-warning'>Food Name: ${singleData.meals[0].strCategory}</h2>
+      <img class="singlemeal" src="${singleData.strMealThumb}">
+      <h1 class="meal-name">${singleData.strMeal}</h1>
+      <h2 class='text-center text-secondary'>Food Area: ${
+        singleData.strArea
+      }</h2>
+ <h2 class='text-center text-warning'>Food Name: ${singleData.strCategory}</h2>
           </div>
           <div>
           <h2>Instructions:</h2>
-      <p>${singleData.meals[0].strInstructions}</p>
+      <p>${singleData.strInstructions}</p>
       <div class="row">
       <div class="col-md-6">
       <h2>Ingredients:</h2>
            <ul>
-              <li>${singleData.meals[0].strIngredient1}</li>
-              <li>${singleData.meals[0].strIngredient2}</li>
-              <li>${singleData.meals[0].strIngredient3}</li>
-              <li>${singleData.meals[0].strIngredient4}</li>
-              <li>${singleData.meals[0].strIngredient5}</li>
-              <li>${singleData.meals[0].strIngredient6}</li>
-              <li>${singleData.meals[0].strIngredient7}</li>
-              <li>${singleData.meals[0].strIngredient8}</li>
+              <li>${singleData.strIngredient1}</li>
+              <li>${singleData.strIngredient2}</li>
+              <li>${singleData.strIngredient3}</li>
+              <li>${singleData.strIngredient4}</li>
+              <li>${singleData.strIngredient5}</li>
+              <li>${singleData.strIngredient6}</li>
+              <li>${singleData.strIngredient7}</li>
+              <li>${singleData.strIngredient8}</li>
               </ul>
       </div>
       <div class="col-md-6">
        <h2>Measurements:</h2>
        <ul>
-       <li>${singleData.meals[0].strMeasure1}</li>
-       <li>${singleData.meals[0].strMeasure2}</li>
-       <li>${singleData.meals[0].strMeasure3}</li>
-       <li>${singleData.meals[0].strMeasure4}</li>
-       <li>${singleData.meals[0].strMeasure5}</li>
-       <li>${singleData.meals[0].strMeasure6}</li>
-       <li>${singleData.meals[0].strMeasure7}</li>
-       <li>${singleData.meals[0].strMeasure8}</li>
+       <li>${singleData.strMeasure1}</li>
+       <li>${singleData.strMeasure2}</li>
+       <li>${singleData.strMeasure3}</li>
+       <li>${singleData.strMeasure4}</li>
+       <li>${singleData.strMeasure5}</li>
+       <li>${singleData.strMeasure6}</li>
+       <li>${singleData.strMeasure7}</li>
+       <li>${singleData.strMeasure8}</li>
        </ul>
       </div>
           </div>
           <div class='col-6-offset-3>
        <h2 class='text-center'>Watch Full Video on <a class='text-danger yt' data-bs-toggle="modal" data-bs-target="#exampleModal${
-         singleData.meals[0].idMeal
+         singleData.idMeal
        }"><u>Youtube</u></a></h2>
        </div>
           <!-- Modal -->
        <div class="modal fade" id="exampleModal${
-         singleData.meals[0].idMeal
+         singleData.idMeal
        }" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel">${
-                singleData.meals[0].strMeal
+                singleData.strMeal
               }</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <iframe src="https://youtube.com/embed/${singleData.meals[0].strYoutube.slice(
+            <iframe src="https://youtube.com/embed/${singleData.strYoutube.slice(
               -11
             )}" frameborder="0" width="100%" height='300'></iframe>
             </div>
@@ -175,18 +181,8 @@ function recipeDetail(idMeal) {
             </div>
           </div>
         </div>`;
-          //localStorage.setItem("recipes", JSON.stringify(recipeDetails));
-          Detail.appendChild(mealDetail);
-        } else {
-          console.log("Meal data not found");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching meal:", error);
-      });
-  } else {
-    console.log("Meal with idMeal", idMeal, "not found in recipeDetails.");
-  }
+  //localStorage.setItem("recipes", JSON.stringify(recipeDetails));
+  Detail.appendChild(mealDetail);
 }
 
 function closePopup() {
@@ -195,6 +191,7 @@ function closePopup() {
     popup.remove();
   }
 }
+
 function closeAdd() {
   var add = document.querySelector(".recipe-form");
   if (add) {
@@ -256,7 +253,7 @@ function addRecipe() {
         strYoutube: recipeUrl,
       };
       newRecipe.push(updatedRecipe);
-      localStorage.setItem("recipes", JSON.stringify(newRecipe));
+      localStorage.setItem("recipes", JSON.stringify(newRecipe))
       console.log("consoleagain", newRecipe);
       const recipeDiv = document.createElement("div");
       recipeDiv.classList.add("recipe");
@@ -285,7 +282,6 @@ function addRecipe() {
 function addIngredient() {
   var ingredientInput = document.getElementById("recipeIngredients");
   var ingredientList = document.getElementById("ingredient-list");
-
   if (ingredientInput.value !== "") {
     var li = document.createElement("li");
     li.textContent = ingredientInput.value;
@@ -307,38 +303,56 @@ function addMeasurement() {
 
 function Edit(idMeal) {
   const mealsFromLocalStorage = JSON.parse(localStorage.getItem("recipes"));
-  const mealToEdit = mealsFromLocalStorage.find(
+  const singleData = mealsFromLocalStorage.find(
     (meal) => meal.idMeal === idMeal
   );
+  // if (idMeal) {
+  //   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((singleData) => {
+  //       if (singleData.meals) {
+  //         console.log(singleData);
   const form = document.createElement("form");
+  form.id = "editForm"; 
   form.innerHTML = ` 
-  <h2 class='text-center'>Edit Recipe</h2>
-    <label for="mealName">Meal Name:</label>
-    <input type="text" id="mealName" name="mealName" value="${mealToEdit.strMeal}">
-    <br>
-    <label for="mealImage">Image URL:</label>
-    <input type="text" id="mealImage" name="mealImage" value="${mealToEdit.strMealThumb}">
-    <br>
-    <div class="text-center">
-    <button class="btn btn-primary" type="submit">Save Changes</button>
-    </div>
-  `;
+  <div class="cross-icon">
+          <button type="button" class="btn-close" aria-label="Close" onclick="closeEdit();"></button>
+      </div>
+            <h2 class='text-center'>Edit Recipe</h2>
+              <label for="mealName">Meal Name:</label>
+              <input type="text" id="mealName" name="mealName" value="${singleData.strMeal}">
+              <br>
+              <label for="mealImage">Image URL:</label>
+              <input type="text" id="mealImage" name="mealImage" value="${singleData.strMealThumb}">
+              <br>
+              <div class="text-center">
+              <button class="btn btn-primary" type="submit">Save Changes</button>
+              </div>
+            `;
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const newMealName = form.elements.mealName.value;
     const newMealImage = form.elements.mealImage.value;
 
     // Update meal info
-    mealToEdit.strMeal = newMealName;
-    mealToEdit.strMealThumb = newMealImage;
-
+    singleData.strMeal = newMealName;
+    singleData.strMealThumb = newMealImage;
     localStorage.setItem("recipes", JSON.stringify(mealsFromLocalStorage));
-
     renderCards(mealsFromLocalStorage);
-
     form.remove();
   });
 
   // Append the form to the container
   recipeContainer.appendChild(form);
+}
+function closeEdit() {
+  const form = document.querySelector("#editForm");
+  if (form) {
+    form.remove();
+  }
 }
